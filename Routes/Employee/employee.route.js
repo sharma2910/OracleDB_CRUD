@@ -2,8 +2,8 @@
 /* eslint-disable quotes */
 const express = require('express')
 const oracledb = require('oracledb')
-// const validate = require('./employee.model')
 const router = express.Router()
+const { ValidateInsert } = require('./employee.validate')
 
 const dbDeatils = {
   user: 'test_demo',
@@ -14,22 +14,34 @@ const dbDeatils = {
 router.get('/', async (req, res) => {
   oracledb.getConnection(
     dbDeatils, async (err, con) => {
-      if (err) throw err.message
+      if (err) res.send(`Error Number : #${err.errorNum}\nError Message:${err.message}`)
       if (con) {
         console.log('Connected To DB..........')
-        let ro = []
-        con.execute(`SELECT * FROM TEST_EMPLOYEE`, [], { outFormat: oracledb.OBJECT, resultSet: true }).then((result) => { result.resultSet.getRow().then(row => { ro.push(row) }) })
-        res.send(ro)// const result = await con.execute(`select * from employees`, [], {
-        //   resultSet: true
-        // })
-        // console.log(result.resultSet)
-        // let row
-        // let i = 1
-        // const rs = result.resultSet
-        // while ((row = await rs.getRow())) {
-        //   console.log("getRow(): row " + i++)
-        //   res.send(row)
-        // }
+        con.execute("SELECT * FROM EMPLOYEE_TEST", [], {
+          outFormat: oracledb.OBJECT
+        },
+        async (err1, result) => {
+          if (err1) res.send(`Error Number : #${err1.errorNum}\nError Message:${err1.message}`)
+          res.send(await result.rows)
+        })
+      }
+    }
+  )
+})
+
+router.get('/:id', async (req, res) => {
+  oracledb.getConnection(
+    dbDeatils, async (err, con) => {
+      if (err) res.send(`Error Number : #${err.errorNum}\nError Message:${err.message}`)
+      if (con) {
+        console.log('Connected To DB..........')
+        con.execute("SELECT * FROM EMPLOYEE_TEST WHERE ID = :id", [req.params.id], {
+          outFormat: oracledb.OBJECT
+        },
+        async (err1, result) => {
+          if (err1) res.send(`Error Number : #${err1.errorNum}\nError Message:${err1.message}`)
+          res.send(await result.rows)
+        })
       }
     }
   )
@@ -38,15 +50,35 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
   oracledb.getConnection(
     dbDeatils, async (err, con) => {
-      if (err) throw err
+      if (err) throw res.send(`Error Number : #${err.errorNum}\nError Message:${err.message}`)
       if (con) {
-        const result = con.execute(`INSERT INTO TEST_EMPLOYEE(id,name,department) VALUES(1,'Anshul','Anshul@gmail.com')`, [], {
+        const { error } = ValidateInsert(req.body)
+        if (error) res.send(error.message)
+
+        const id = req.body.id
+        const name = req.body.name
+        const age = req.body.age
+        const dept = req.body.department
+        const phone = req.body.phone
+        const result = await con.execute(`INSERT INTO EMPLOYEE_TEST(id,name,department,age,phone) VALUES(:id,:name,:dept,:age,:phone)`, [id, name, dept, age, phone], {
+          autoCommit: true
         })
-        result.then((resu) => {
-          res.send(resu.rowsAffected.toString())
-        }).catch((err) => {
-          res.send(err.message)
+        res.send(`Number of Rows Affected : ${result.rowsAffected.toString()}`)
+      }
+    }
+  )
+})
+
+router.delete('/:id', (req, res) => {
+  oracledb.getConnection(
+    dbDeatils, async (err, con) => {
+      if (err) res.send(`Error Number : #${err.errorNum}\nError Message:${err.message}`)
+      if (con) {
+        const id = req.params.id
+        const result = await con.execute('DELETE FROM EMPLOYEE_TEST where ID = :1', [id], {
+          autoCommit: true
         })
+        res.send(result.rowsAffected.toString())
       }
     }
   )

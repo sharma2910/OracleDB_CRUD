@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
       if (error) throw error
       if (connection) {
         console.log('connected to DB........')
-        connection.execute(`CREATE TABLE TEST_EMPLOYEE(id INT,name VARCHAR(50),department VARCHAR(50))`, [],
+        connection.execute(`CREATE TABLE EMPLOYEE_TEST(id INT,name VARCHAR(50),department VARCHAR(50),age INT,phone INT)`, [],
           (err, resu) => {
             if (err) return res.send(`Error Number : #${err.errorNum}\nError Message:${err.message}`)
             if (resu) {

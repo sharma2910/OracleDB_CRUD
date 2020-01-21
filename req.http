@@ -1,0 +1,10 @@
+POST  http://localhost:3000/employee HTTP/1.1
+
+Content-Type: application/json
+
+{
+    "id": 1,
+    "name": "Darshit",
+    "department": "IT"
+}
+s
