@@ -1,0 +1,33 @@
+{"message":"Listening on port 3000..","level":"info"}
+{"message":"Connected To DB..........","level":"info"}
+{"message":"Listening on port 3000..","level":"info"}
+{"message":"Listening on port 3000..","level":"info"}
+{"message":"Listening on port 3000..","level":"info"}
+{"message":"Listening on port 3000..","level":"info"}
+{"message":"Listening on port 3000..","level":"info"}
+{"message":"Listening on port 3000..","level":"info"}
+{"message":"Listening on port 3000..","level":"info"}
+{"message":"Listening on port 3000..","level":"info"}
+{"message":"Listening on port 3000..","level":"info"}
+{"message":"Listening on port 3000..","level":"info"}
+{"message":"Listening on port 3000..","level":"info"}
+{"message":"Listening on port 3000..","level":"info"}
+2020-01-22T08:51:57.234Z [32minfo[39m: [32mListening on port 3000..[39m
+2020-01-22T08:51:58.273Z [32minfo[39m: [32mListening on port 3000..[39m
+2020-01-22T08:52:23.122Z [32minfo[39m: [32mListening on port 3000..[39m
+2020-01-22T08:52:59.309Z [32minfo[39m: [32mListening on port 3000..[39m
+2020-01-22T08:53:11.616Z[32minfo[39m[32mListening on port 3000..[39m
+function toString() { [native code] }
+2020-01-22T08:53:48.729Z	[32minfo[39m:	[32mListening on port 3000..[39m
+2020-01-22T08:54:44.211Z
+2020-01-22T08:55:01.429Z [object Object]
+2020-01-22T08:55:17.054Z [32mListening on port 3000..[39m
+2020-01-22T08:55:52.910Z [32mListening on port 3000..[39m
+2020-01-22T08:56:28.380Z [32minfo[39m [32mListening on port 3000..[39m
+{
+  message: '\u001b[32mListening on port 3000..\u001b[39m',
+  level: '\u001b[32minfo\u001b[39m',
+  timestamp: '2020-01-22T08:56:48.865Z'
+}
+2020-01-22T08:57:50.392Z [32minfo[39m [32mListening on port 3000..[39m
+2020-01-22T08:58:56.227Z [32minfo[39m [32mListening on port 3000..[39m

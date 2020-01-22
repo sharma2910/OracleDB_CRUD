@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const oracledb = require('oracledb')
+const logger = require('winston')
 
 const dbDeatils = {
   user: 'test_demo',
@@ -11,14 +12,20 @@ const dbDeatils = {
 router.get('/', async (req, res) => {
   oracledb.getConnection(
     dbDeatils, async (err, con) => {
-      if (err) res.send(`Error Number : #${err.errorNum}\nError Message:${err.message}`)
+      if (err) {
+        logger.error(`Error Number : #${err.errorNum}\nError Message:${err.message}`)
+        return res.send(`Error Number : #${err.errorNum}\nError Message:${err.message}`)
+      }
       if (con) {
-        console.log('Connected To DB..........')
-        con.execute('SELECT * FROM TEST_EMPLOYEE', [], {
+        logger.info('Connected To DB..........')
+        con.execute('SELECT * FROM EMPLOYEE_TEST', [], {
           extendedMetaData: true
         },
         async (err1, result) => {
-          if (err1) res.send(`Error Number : #${err1.errorNum}\nError Message:${err1.message}`)
+          if (err1) {
+            logger.error(`Error Number : #${err1.errorNum}\nError Message:${err1.message}`)
+            res.send(`Error Number : #${err1.errorNum}\nError Message:${err1.message}`)
+          }
           res.send(await result.metaData)
         })
       }

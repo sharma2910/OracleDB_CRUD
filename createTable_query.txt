@@ -1,7 +1,7 @@
-CREATE TABLE TEST_EMPLOYEE( 
+CREATE TABLE EMPLOYEE_TEST( 
                             Emp_id INT NOT NULL,
                             Name Varchar(100) NOT NULL,
                             Age INT NOT NULL,
                             Phone INT NOT NULL,
                             Department Varchar(20) NOT NULL,
-                            CONSTRAINT epm_pk PRIMARY KEY(Emp_id) ); 
+                        ); 
